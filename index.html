@@ -2,19 +2,25 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sökportal</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <button id="themeToggle">🌙</button>
+
   <main class="container">
     <h1 class="logo">Sök</h1>
 
-    <input
-      id="searchInput"
-      type="text"
-      placeholder="Sök bland sidor..."
-      autofocus
-    />
+    <div class="search-wrapper">
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Sök bland sidor..."
+        autocomplete="off"
+      />
+      <ul id="suggestions"></ul>
+    </div>
 
     <div id="results"></div>
   </main>
