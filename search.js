@@ -1,11 +1,11 @@
 const input = document.getElementById("searchInput");
 const resultsDiv = document.getElementById("results");
+const suggestions = document.getElementById("suggestions");
+const themeToggle = document.getElementById("themeToggle");
 
-input.addEventListener("input", () => {
-  const query = input.value.toLowerCase().trim();
+// 🔎 Sökfunktion
+function runSearch(query) {
   resultsDiv.innerHTML = "";
-
-  if (!query) return;
 
   const results = SITES.filter(site =>
     site.title.toLowerCase().includes(query) ||
@@ -22,4 +22,36 @@ input.addEventListener("input", () => {
     `;
     resultsDiv.appendChild(div);
   });
+}
+
+// ✨ Autocomplete
+input.addEventListener("input", () => {
+  const query = input.value.toLowerCase().trim();
+  suggestions.innerHTML = "";
+  resultsDiv.innerHTML = "";
+
+  if (!query) return;
+
+  const matches = SITES
+    .map(s => s.title)
+    .filter(t => t.toLowerCase().startsWith(query))
+    .slice(0, 5);
+
+  matches.forEach(text => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    li.onclick = () => {
+      input.value = text;
+      suggestions.innerHTML = "";
+      runSearch(text.toLowerCase());
+    };
+    suggestions.appendChild(li);
+  });
+
+  runSearch(query);
 });
+
+// 🌙 Dark mode
+themeToggle.onclick = () => {
+  document.body.classList.toggle("dark");
+};
